@@ -97,7 +97,7 @@
     <div class="caption">Our hands, always together 🤝</div>
   </div>
   <div class="photo-block" style="--rotate: -3deg;">
-    <img src="1.jpg" alt="Photo 3">
+    <img src="`1.jpg" alt="Photo 3">
     <div class="caption">Sweetest moment 🥰</div>
   </div>
   <div class="photo-block" style="--rotate: 6deg;">
@@ -107,36 +107,61 @@
 </div>
 
 <div class="audio-player">
-  <button id="playMusic">I Love You 🎵</button>
-  <iframe id="ytMusic" width="0" height="0" src="https://www.youtube.com/embed/DbxOmAsowd0?enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+  <button id="playMusic1">Play Romantic Music 1 🎵</button>
+  <button id="playMusic2">Play Romantic Music 2 💖</button>
+
+  <iframe id="ytMusic1" width="0" height="0" src="https://www.youtube.com/embed/DbxOmAsowd0?enablejsapi=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+  <iframe id="ytMusic2" width="0" height="0" src="https://www.youtube.com/embed/u1ZWRUPYlog?enablejsapi=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
 </div>
 
 <script>
-  const playBtn = document.getElementById('playMusic');
-  const ytFrame = document.getElementById('ytMusic');
-  let isPlaying = false;
+  let player1, player2;
+  let isPlaying1 = false;
+  let isPlaying2 = false;
+
+  const playBtn1 = document.getElementById('playMusic1');
+  const playBtn2 = document.getElementById('playMusic2');
 
   var tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-  let player;
-
   function onYouTubeIframeAPIReady() {
-    player = new YT.Player('ytMusic');
+    player1 = new YT.Player('ytMusic1');
+    player2 = new YT.Player('ytMusic2');
   }
 
-  playBtn.addEventListener('click', () => {
-    if (player) {
-      if (!isPlaying) {
-        player.playVideo();
-        playBtn.textContent = 'Pause Music ⏸️';
-        isPlaying = true;
+  playBtn1.addEventListener('click', () => {
+    if (player1) {
+      if (!isPlaying1) {
+        player1.playVideo();
+        player2.pauseVideo(); // Stop the other song
+        playBtn1.textContent = 'Pause Music 1 ⏸️';
+        playBtn2.textContent = 'Youre mine 💖';
+        isPlaying1 = true;
+        isPlaying2 = false;
       } else {
-        player.pauseVideo();
-        playBtn.textContent = 'Play Romantic Music 🎵';
-        isPlaying = false;
+        player1.pauseVideo();
+        playBtn1.textContent = 'I LOVE U 🎵';
+        isPlaying1 = false;
+      }
+    }
+  });
+
+  playBtn2.addEventListener('click', () => {
+    if (player2) {
+      if (!isPlaying2) {
+        player2.playVideo();
+        player1.pauseVideo(); // Stop the other song
+        playBtn2.textContent = 'Pause Music 2 ⏸️';
+        playBtn1.textContent = 'Play Romantic Music 1 🎵';
+        isPlaying2 = true;
+        isPlaying1 = false;
+      } else {
+        player2.pauseVideo();
+        playBtn2.textContent = 'Play Romantic Music 2 💖';
+        isPlaying2 = false;
       }
     }
   });
